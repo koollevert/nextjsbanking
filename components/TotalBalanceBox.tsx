@@ -1,5 +1,6 @@
 import React from 'react'
 import { AnimatedCounter } from './AnimatedCounter'
+import DoughnutChart from './DoughnutChart'
 
 const TotalBalanceBox = ({
     accounts=[], totalBanks, totalCurrentBalance
@@ -7,7 +8,7 @@ const TotalBalanceBox = ({
   return (
     <section className="total-balance">
         <div className='total-balance-chart'>
-            {/*DoughnutChart */}
+            <DoughnutChart accounts={accounts}/>
         </div>
 
         <div className='flex flex-col gap-6'>
@@ -18,10 +19,11 @@ const TotalBalanceBox = ({
                 <p className='total-balance-label'>
                     Total Current balance
                 </p>
-                <p className='total-balance-amount flex-center gap-2'>
+                <div className='total-balance-amount flex-center gap-2'>
                     <AnimatedCounter amount=
                     {totalCurrentBalance}
-                </p>
+                    />
+                </div>
             </div>
 
         </div>
