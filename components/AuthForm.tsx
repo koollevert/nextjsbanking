@@ -45,11 +45,23 @@ const AuthForm = ({type}: {type: string}) => {
   const onSubmit=async(data: z.infer<typeof formSchema>)=> {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       //Sign up with Appwrite & create plaid token
       if(type==='Sign-up'){
-        const newUser= await signUp(data);
+        const userData={
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email!,
+          password: data.password
+        }
+        const newUser= await signUp(userData);
         setUser(newUser);
 
       }
@@ -63,9 +75,9 @@ const AuthForm = ({type}: {type: string}) => {
       }
       
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }finally{
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
   return (
@@ -95,11 +107,11 @@ const AuthForm = ({type}: {type: string}) => {
           </h1>
         </div>
         </header>
-      {/* {user ? ( */}
+      {user ? (
         <div className='flex flex-col gap-4'>
           <PlaidLink user={user} variant="primary"/>
         </div>
-      {/* ):( */}
+      ):( 
         <>
           <Form {...form}> 
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -152,7 +164,7 @@ const AuthForm = ({type}: {type: string}) => {
           </footer>
         </>
 
-      {/* )} */}
+      )}
       
     </section>
   )
